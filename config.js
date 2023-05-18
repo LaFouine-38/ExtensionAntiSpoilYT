@@ -3,4 +3,4 @@ const delay = 1000
 
 const bannedExpressions = ["totk", "tears of the kingdom"]
 
-export {delay, bannedExpressions}
+// export {delay, bannedExpressions}

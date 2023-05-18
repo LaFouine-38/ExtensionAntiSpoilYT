@@ -1,21 +1,25 @@
 {
     "manifest_version": 3,
-    "name": "Anti-Spoil TOTK",
+    "name": "Anti-Spoil YT",
     "version": "0.0.1",
+    "permissions": [
+        "tabs",
+        "activeTab"
+    ],
+    "background":{
+        "service_worker": "background_script.js"
+    },
     "content_scripts": [
         {
             "matches": [
-                "https://www.youtube.com"
+                "https://www.youtube.com/",
+                "https://www.youtube.com/shorts/*",
+                "https://www.youtube.com/watch*"
             ],
             "js": [
-                "content_scripts/home.js"
-            ]
-        },{
-            "matches": [
-                "https://www.youtube.com"
-            ],
-            "js": [
-                "content_scripts/video.js"
+                "config.js",
+                "utils.js",
+                "content_script.js"
             ]
         }
     ]

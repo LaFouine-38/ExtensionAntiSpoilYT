@@ -1,6 +1,3 @@
-import { arrayMatches } from "./utils"
-import { delay, bannedExpressions } from "./config";
-
 let intervalId;
 
 function runInterval() {
@@ -9,19 +6,19 @@ function runInterval() {
 
 
 function interval() {
-    console.log("checked")
+    console.log("home")
     let videoElements = document.querySelectorAll("ytd-rich-item-renderer[class='style-scope ytd-rich-grid-row']:not(.anti-spoil-checked)")
     videoElements.forEach(e => {
         e.classList.add('anti-spoil-checked')
-        let title = e.querySelector("yt-formatted-string#video-title.style-scope.ytd-rich-grid-media")
+        let title = e.querySelector("yt-formatted-string#video-title[class='style-scope ytd-rich-grid-media']")
         if (arrayMatches(bannedExpressions, title.innerText)) {
             e.style.display = 'none'
         }
     })
-    let shortElements = document.querySelectorAll("ytd-rich-item-renderer[class='style-scope ytd-rich-shelf-renderer']:not(.anti-spoil-checked)'")
+    let shortElements = document.querySelectorAll("ytd-rich-item-renderer[class='style-scope ytd-rich-shelf-renderer']:not(.anti-spoil-checked)")
     shortElements.forEach(e => {
         e.classList.add('anti-spoil-checked')
-        let title = e.querySelector("yt-formatted-string#video-title.style-scope.ytd-rich-grid-media")
+        let title = e.querySelector("span#video-title[class='style-scope ytd-rich-grid-slim-media']")
         if (arrayMatches(bannedExpressions, title.innerText)) {
             e.style.display = 'none'
         }
@@ -36,10 +33,8 @@ window.addEventListener("beforeunload", (e) => {
 
 document.addEventListener("visibilitychange", (e) => {
     if (document.visibilityState == "visible") {
-        console.log("tab is active")
         if (!intervalId) runInterval()
     } else {
-        console.log("tab is inactive")
         if (intervalId) clearInterval(intervalId)
         intervalId = null
     }
